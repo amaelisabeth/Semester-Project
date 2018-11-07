@@ -16,6 +16,8 @@
 		require_once 'login_functions.php';
 		$connection = new mysqli($hn, $un, $pw, $db);
 		
+		if ($connection->connect_error) 
+			die($connection->connect_error);
 		
 		if(isset($_POST["username"]) and isset($_POST["password"])) {
 			$uname = $_POST["username"];
@@ -25,14 +27,17 @@
 			$result = $connection->query($query);
 			if (!$result) 
 				die($connection->error);
-			else 
-				print"Login successful!";
+			
 			
 			// If username / password are invalid, print error message
 			// and keep form filled 
 			if ($result->num_rows == 0) {
 				echo "<p style=\"color: red\"> The username / password combination is not correct.</p>";
 			}
+			else 
+				//print"Login successful!";
+				header('Location: home_page.php');
+				//exit();
 		}
 			
 		$connection->close();
@@ -41,9 +46,9 @@
 
 	<form method="post" action="login.php">
 		<label>Username: </label>
-		<input type="text" name="username" value="<?php echo $_POST["username"] ?>"> <br>
+		<input type="text" name="username"> <br>
 		<label>Password: </label>
-		<input type="password" name="password" value="<?php echo $_POST["password"] ?>"> <br>
+		<input type="password" name="password"> <br>
 		<input type="submit" value="Log in">
 	</form>
 	
