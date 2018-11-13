@@ -1,15 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Log in to Website</title>
-  <style>
-	input {
-            margin-bottom: 0.5em;
-        }
-	</style>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Bootstrap CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	
+	<title>Log in to Website</title>
 </head>
-<body>
+<body class="text-center">
 <h1>Welcome to the Intro to SE Quiz Generator!</h1>
 
 	<?php
@@ -43,19 +44,28 @@
 		$connection->close();
 		
 	?>
-
-	<form method="post" action="login.php">
-		<label>Username: </label>
-		<input type="text" name="username"> <br>
-		<label>Password: </label>
-		<input type="password" name="password"> <br>
-		<input type="submit" value="Log in">
-	</form>
+	<div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
 	
-	<p style="font-style:italic">
-		Placeholder for "forgot password" link<br><br>
-		Placeholder for "create account" link
-	</p>
+			<form method="post" action="login.php">
+				<div class="form-group">
+					<label for="username" class="text-black">Username:</label>
+					<input type="text" class="form-control" name="username">
+				</div>
+				<div class="form-group">
+					<label for="password" class="text-black">Password:</label>
+					<input type="password" class="form-control" name="password">
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary btn-md" value="Login">
+				</div>
+			</form> 
+		</div>
+		<p>
+		<a href="forgot_password.php" class="btn btn-primary active">Forgot Password</a>
+		<a href="create_account.php" class="btn btn-primary active">Create Account</a>
+		</p>
+	</div>
 
 </body>
 </html>

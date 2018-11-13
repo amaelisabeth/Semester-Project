@@ -8,17 +8,15 @@
 	<!-- Bootstrap CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	
-  <title>HOME PAGE</title>
+  <title>Forgot Password PAGE</title>
 	
 </head>
 <body>
-	<h1>Welcome to the Home Page!</h1>
+	<h1>Welcome to the Forgot Password Page!</h1>
 
 	<p style="font-style:italic">
-		Placeholder for "create new quiz" link<br><br>
-		Placeholder for "old quizzes" link<br><br>
 		
-		<a href="login.php" class="btn btn-outline-primary">logout</a>
+		<a href="login.php" class="btn btn-outline-primary">back</a>
 	</p>
 
 
