@@ -17,13 +17,9 @@
 	
 	<?php
 		if(isset($_POST['submit'])){
-		
-			
-		
 			if(empty(isset($_POST['chapter']))){
 				echo("You did not select any chapters");
 			}
-			
 			else{
 				$aChapter = ($_POST["chapter"]);
 				$N = count($aChapter);
@@ -31,15 +27,9 @@
 				for($i=0; $i < $N; $i++){
 					echo($aChapter[$i] . " ") .  "</br>";
 				}	
-				
 			}
 		}
 	?>
 	<a href = "quiz_creation.php"> <input type = "submit" value = "Next"></a></br>
 	</br><a href="index.php"> <input type = "submit" value = "Click here to go back" ></a></br>
 </html>
-
-
-
-
-
