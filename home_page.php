@@ -12,14 +12,20 @@
 	
 </head>
 <body>
-	<h1>Welcome to the Home Page!</h1>
-
-	<p style="font-style:italic">
-		Placeholder for "create new quiz" link<br><br>
-		Placeholder for "old quizzes" link<br><br>
+	<div class="col">
+	
+		<h1>Welcome to the Home Page!</h1>
+		<ul class="nav flex-column">
+			<li class="nav-item">
+				<a href="create_new_quiz.php" class="btn btn-primary">Create New Quiz</a><br><br>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="btn btn-primary">Placeholder for "old quizzes" link</a><br><br>
+			</li>
+		</ul>
 		
 		<a href="login.php" class="btn btn-outline-primary">logout</a>
-	</p>
+	</div>
 
 
 </body>
