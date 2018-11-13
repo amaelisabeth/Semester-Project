@@ -13,30 +13,33 @@
 				</br>Number of Questions: <input type="number" name = "qNum">
 				<a href = "new_quiz.php" > <input type="submit" name="submit" value="Submit"></a>
 			</form>
-			
-			<a href="index.php"> <input type = "submit" value = "Click here to go back" ></a></br>
-			
     </body>
 	
-</html>
-
-<?php
-	if(isset($_POST['submit'])){
-		$aChapter = ($_POST["chapter"]);
+	<?php
+		if(isset($_POST['submit'])){
 		
-		if(empty($aChapter)){
-			echo("You did not select any chapters");
-		}
+			
 		
-		else{
-			$N = count($aChapter);
-			echo("You selected $N chapter(s): ") . "</br>";
-			for($i=0; $i < $N; $i++){
-				echo($aChapter[$i] . " ") .  "</br>";
+			if(empty(isset($_POST['chapter']))){
+				echo("You did not select any chapters");
 			}
 			
-			echo("Is this correct?");
+			else{
+				$aChapter = ($_POST["chapter"]);
+				$N = count($aChapter);
+				echo("You selected $N chapter(s): ") . "</br>";
+				for($i=0; $i < $N; $i++){
+					echo($aChapter[$i] . " ") .  "</br>";
+				}	
+				
+			}
 		}
-	}
-?>
+	?>
+	<a href = "quiz_creation.php"> <input type = "submit" value = "Next"></a></br>
+	</br><a href="index.php"> <input type = "submit" value = "Click here to go back" ></a></br>
+</html>
+
+
+
+
 
