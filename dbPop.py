@@ -4,7 +4,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   database="se_project",
-  port=3307
+  port=3307  #make sure to change this to your port, or if you use 3306, just take out this line and the comma before it
 )
 
 readFile = open("updatedQuestions.txt","r")
