@@ -1,0 +1,12 @@
+class for questions
+
+-questionID
+-question
+-answers
+-which answer is correct
+
+methods
+-get and set answers
+-get and set question
+-get and set correct answer
+-print (questions and answers)

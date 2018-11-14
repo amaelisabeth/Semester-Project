@@ -54,6 +54,7 @@
 		}
 		$chapter_string = $row["chapters"]; 
 		$numQues = $row["number_of_questions"];
+		$numQues = (int)$numQues;
 		//echo("Num of Questions: " ). $numQues; // Here for testing
 		
 		//split chapters string up
@@ -69,18 +70,82 @@
 		
 		$results[] = "";
 		$rows[] = "";
+		$questionID_array = array(array()); // Multidimensional array that contains the questionIDs for each chapter
+		$questions_array = array(array());
+		
 		for ($i = 0; $i < count($queries); $i++) {
 			$results[$i] = $connection->query($queries[$i]);
 			if(!$results[$i]) {
 				die($connection->error);
 			}
-			$rows[$i] = $results[$i]->fetch_assoc();
-			//echo("questionID: " . $rows[$i]["questionID"]); // for testing. Make a while look where condition is the line right above this
+			$count = 0;
+			// Select only the number of questions needed for this quiz
+			while($rows[$i] = $results[$i]->fetch_assoc() and ($count < $numQues)) {
+				//echo("questionID: " . $rows[$i]["questionID"] . " "); // for testing. Make a while look where condition is the line right above this
+				$questionID_array[$i][$count] = $rows[$i]["questionID"];
+				$questions_array[$i][$count] = $rows[$i]["question"];
+				$count++;
+			}
 		}
 		
-		// Select only the number of questions needed for this quiz
+		for ($i = 0; $i < count($chapter_array); $i++) {
+			$queries[$i] = "SELECT * FROM answers_a, questions
+							WHERE answers_a.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
+							SELECT * FROM answers_b, questions
+							WHERE answers_b.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
+							SELECT * FROM answers_c, questions 
+							WHERE answers_c.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
+							SELECT * FROM answers_d, questions
+							WHERE answers_d.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
+							SELECT * FROM answers_e, questions
+							WHERE answers_e.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "'";	
+		}
+		$answerID_array = array(array()); 
+		$answers_array = array(array()); // hold the answers for each question
 		
+		for ($i = 0; $i < count($queries); $i++) {
+			$results[$i] = $connection->query($queries[$i]);
+			if(!$results[$i]) {
+				die($connection->error);
+			}
+			$count = 0;
+			// Select only the number of questions needed for this quiz
+			while($rows[$i] = $results[$i]->fetch_assoc() and ($count < $numQues)) {
+				//echo("questionID: " . $rows[$i]["questionID"] . " "); // for testing. Make a while look where condition is the line right above this
+				$answers_array[$i][$count] = $rows[$i]["answer"];
+				echo $answers_array[$i][$count] . "<br>";
+				$count++;
+			}
+		}
+		
+		
+		// Testing. Checking if array made correctly
+		echo "<form action = \"grade.php\" method = \"post\" id = \"quiz\">";
+		
+		for($i = 0; $i < count($queries); $i++) {
+			echo("Chapter " . $chapter_array[$i] . "<br>");
+				for($j = 0; $j < $numQues; $j++) {
+					//echo($questions_array[$i][$j] . "<br>");
+					echo ($j + 1) . ") " . $questions_array[$i][$j] . "<br>";
+					for($k = 0; $k < count($answers_array[$i][$j]); $k++) {
+						echo "STUFF HERE <br>";
+						//echo "<input type = \"radio\" name = \"response\" value = " . $answers_array[$i][$k] . "><br>";
+					}
+					
+				}
+			}
+			
+		echo "</form>";
+		
+		// When making the form for the quiz, query database to get the answers for each.
+		// Union the databases where questionIDs match
 
+		// Populating form
+		// while loop through ($rows[$i] = $results[$i]->fetch_assoc() and ($count < $numQues))
+		// form entries in while loop 
+		
+	
+		
 		//Close database connection
 		$connection->close();
 	?>
