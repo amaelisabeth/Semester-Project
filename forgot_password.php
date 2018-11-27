@@ -51,7 +51,7 @@
     }
 
 
-
+    if (isset($_POST["username"])){
       // If username / password are invalid, print error message
       // and keep form filled
       if ($result->num_rows == 0) {
@@ -64,8 +64,9 @@
         echo "<p style=\"color: black\"> Your password is '".$pword['_msg']."'";
         //header('Location: home_page.php');
         //exit();
-    }
+      }
 
+    }
     $connection->close();
 
   ?>
