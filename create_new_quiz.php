@@ -1,10 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title>Create New Quiz</title>
     </head>
     <body>
         <h2>Choose Chapters</h2>
-			<form actions = "new_quiz.php" method = "post">
+			<form action = "create_new_quiz.php" method = "post">
 				<input type = "checkbox" name = "chapter[]" value = "Chapter 1"> Chapter 1 </br>
 				<input type = "checkbox" name = "chapter[]" value = "Chapter 2"> Chapter 2 </br>
 				<input type = "checkbox" name = "chapter[]" value = "Chapter 3"> Chapter 3 </br>
@@ -13,7 +14,7 @@
 				</br>Number of Questions: <input type="number" name = "qNum">
 				<a href = "new_quiz.php" > <input type="submit" name="submit" value="Submit"></a>
 			</form>
-    </body>
+    
 	
 	<?php
 		if(isset($_POST['submit'])){
@@ -41,12 +42,15 @@
 				// check to see if a quiz with these parameters exists and ask if user wants to use old quiz or create new quiz
 				// or they can select new parameters
 				
-				require_once 'login_functions.php';
-				$connection = new mysqli($hn, $un, $pw, $db);
+				// require_once 'login_functions.php';
+				// $connection = new mysqli($hn, $un, $pw, $db);
 		
-				if ($connection->connect_error) {
-					die($connection->connect_error);
-				} 
+				// if ($connection->connect_error) {
+					// die($connection->connect_error);
+				// } 
+				
+				require_once 'database_functions.php';
+				$connection = create_connection();
 				
 				$query = "SELECT * FROM quizzes 
 							WHERE chapters = '" . $sChapter . "' AND number_of_questions = '" . $numQuestion . "'";
@@ -61,13 +65,21 @@
 				if ($result->num_rows == 0) {
 					echo ("No quiz exists with these parameters") . "<br>";
 					// store the new quiz in the quizzes table
+					
+					// Get the last quizID entered
 					$query = "SELECT MAX(quizID) FROM quizzes";
 					$result = $connection->query($query);
 					if(!$result) {
 						die($connection->error);
 					}
-					$query = "INSERT INTO quizzes(chapters, number_of_questions)
-								VALUES('" . $sChapter . "','" . $numQuestion . "')";
+					
+					// Store that Id as an int
+					$row = $result->fetch_assoc();
+					$maxID = (int)$row["MAX(quizID)"];
+					
+					// Add new entry to quizzes table
+					$query = "INSERT INTO quizzes(quizID, chapters, number_of_questions)
+								VALUES('" . ($maxID + 1) . "','" . $sChapter . "','" . $numQuestion . "')";
 					
 					$result = $connection->query($query);
 					if(!$result) {
@@ -79,8 +91,36 @@
 				}
 				// if a result exists, let user know and give them the option to generate a new quiz or take a previous quiz
 				else {
+					
+				{	// MAKE THIS A FUNCTION LATER
+					// Get the last quizID entered
+					$query = "SELECT MAX(quizID) FROM quizzes";
+					$result = $connection->query($query);
+					if(!$result) {
+						die($connection->error);
+					}
+					
+					// Store that Id as an int
+					$row = $result->fetch_assoc();
+					$maxID = (int)$row["MAX(quizID)"];
+					
+					// Add new entry to quizzes table
+					$query = "INSERT INTO quizzes(quizID, chapters, number_of_questions)
+								VALUES('" . ($maxID + 1) . "','" . $sChapter . "','" . $numQuestion . "')";
+					
+					$result = $connection->query($query);
+					if(!$result) {
+						die($connection->error);
+					}
+				}
 					echo("At least one quiz with these parameters exists already. Would you like to take one of those?") . "<br>"; 
-					echo("<a href = \"#\"> <input type = \"submit\" value = \"Yes\"></a></br>");
+					// Made a session to transfer data from one page to another
+					session_start();
+					$_SESSION['previous_location'] = 'create_new_quiz'; // keep track of previous page
+					$_SESSION['chapters'] = $sChapter; // keep track of chapter parameter
+					$_SESSION['numQues'] = $numQuestion;// keep track of questions parameter
+					
+					echo("<a href = \"pre_gen_quiz.php\"> <input type = \"submit\" value = \"Yes\"></a></br>");
 					// if they select no, store the new quiz in the quizzes table
 					echo("<a href = \"quiz_creation.php\"> <input type = \"submit\" value = \"No\"></a></br>");
 				}
@@ -92,4 +132,5 @@
 		
 	?>
 	</br><a href="home_page.php"> <input type = "submit" value = "Click here to go back" ></a></br>
+	</body>
 </html>

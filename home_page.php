@@ -20,11 +20,15 @@
 				<a href="create_new_quiz.php" class="btn btn-primary">Create New Quiz</a><br><br>
 			</li>
 			<li class="nav-item">
-				<a href="#" class="btn btn-primary">Placeholder for "old quizzes" link</a><br><br>
+				<?php
+					session_start();
+					$_SESSION['previous_location'] = 'homepage';
+				?>
+				<a href="pre_gen_quiz.php" class="btn btn-primary">Placeholder for "old quizzes" link</a><br><br>
 			</li>
 		</ul>
 		
-		<a href="login.php" class="btn btn-outline-primary">logout</a>
+		<a href="logout.php" class="btn btn-outline-primary">logout</a>
 	</div>
 
 
