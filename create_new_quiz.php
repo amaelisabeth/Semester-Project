@@ -11,6 +11,11 @@
 				<input type = "checkbox" name = "chapter[]" value = "Chapter 3"> Chapter 3 </br>
 				<input type = "checkbox" name = "chapter[]" value = "Chapter 4"> Chapter 4 </br>
 				<input type = "checkbox" name = "chapter[]" value = "Chapter 5"> Chapter 5 </br>
+				<input type = "checkbox" name = "chapter[]" value = "Chapter 6"> Chapter 6 </br>
+				<input type = "checkbox" name = "chapter[]" value = "Chapter 7"> Chapter 7 </br>
+				<input type = "checkbox" name = "chapter[]" value = "Chapter 8"> Chapter 8 </br>
+				<input type = "checkbox" name = "chapter[]" value = "Chapter 9"> Chapter 9 </br>
+				<input type = "checkbox" name = "chapter[]" value = "Chapter 10"> Chapter 10 </br>
 				</br>Number of Questions: <input type="number" name = "qNum">
 				<a href = "new_quiz.php" > <input type="submit" name="submit" value="Submit"></a>
 			</form>
@@ -42,12 +47,6 @@
 				// check to see if a quiz with these parameters exists and ask if user wants to use old quiz or create new quiz
 				// or they can select new parameters
 				
-				// require_once 'login_functions.php';
-				// $connection = new mysqli($hn, $un, $pw, $db);
-		
-				// if ($connection->connect_error) {
-					// die($connection->connect_error);
-				// } 
 				
 				require_once 'database_functions.php';
 				$connection = create_connection();

@@ -114,16 +114,8 @@
 		
 		for ($i = 0; $i < count($chapter_array); $i++) {
 			for ($j = 0; $j < count($questionID_array); $j++) {
-				$queries[$i] = "SELECT * FROM answers_a, questions
-								WHERE answers_a.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
-								SELECT * FROM answers_b, questions
-								WHERE answers_b.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
-								SELECT * FROM answers_c, questions 
-								WHERE answers_c.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
-								SELECT * FROM answers_d, questions
-								WHERE answers_d.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "' UNION
-								SELECT * FROM answers_e, questions
-								WHERE answers_e.questionID = questions.questionID AND questions.chapter = '" . $chapter_array[$i] . "'";
+				$queries[$i] = "SELECT answers_a.answer as A, answers_b.answer as B, answers_c.answer as C, answers_d.answer as D, answers_e.answer as E FROM answers_a, answers_b, answers_c, answers_d, answers_e, questions
+								WHERE questions.questionID = answers_a.questionID AND questions.questionID = answers_b.questionID AND questions.questionID = answers_c.questionID AND questions.questionID = answers_d.questionID AND questions.questionID = answers_e.questionID AND questions.chapter = '" . $chapter_array[$i] . "'";
 			}							
 		}
 		//$answerID_array = array(array()); 
@@ -137,23 +129,36 @@
 			if(!$results[$i]) {
 				die($connection->error);
 			}
-			echo("Chapter " . $chapter_array[$i] . "<br>");
+			echo("<br>Chapter " . $chapter_array[$i] . "<br>");
 			$count = 0;
 			// Select only the number of questions needed for this quiz
 			while($rows[$i] = $results[$i]->fetch_assoc() and ($count < $numQues)) {
-				echo ($count + 1) . ") " . $questions_array[$i][$count] . "<br>";
-				$answers_array[$i][$count] = $rows[$i]["answer"];
-					for($k = 0; $k < count($answers_array[$i][$count]); $k++) {
-						echo "STUFF HERE <br>";
-						//echo "<input type = \"radio\" name = \"response\" value = " . $answers_array[$i][$k] . "><br>";
-					}
-				//echo("questionID: " . $rows[$i]["questionID"] . " "); // for testing. Make a while look where condition is the line right above this
-				//$answers_array[$i][$count] = $rows[$i]["answer"];
-				//echo $answers_array[$i][$count] . "<br>";
+				echo "<br>" . ($count + 1) . ") " . $questions_array[$i][$count] . "<br>";
+				if ($rows[$i]['A']) {
+					//echo $rows[$i]['A'] . "<br>";
+					echo "<input type = \"radio\" name = \"quesetion " . ($count + 1) . "\">" . $rows[$i]['A'] . " <br>";
+				}
+				
+				if ($rows[$i]['B']) {
+					echo "<input type = \"radio\" name = \"quesetion " . ($count + 1) . "\">" . $rows[$i]['B'] . " <br>";
+				}
+				
+				if ($rows[$i]['C']) {
+					echo "<input type = \"radio\" name = \"quesetion " . ($count + 1) . "\">" . $rows[$i]['C'] . " <br>";
+				}
+				
+				if ($rows[$i]['D']) {
+					echo "<input type = \"radio\" name = \"quesetion " . ($count + 1) . "\">" . $rows[$i]['D'] . " <br>";
+				}
+				
+				if ($rows[$i]['E']) {
+					echo "<input type = \"radio\" name = \"quesetion " . ($count + 1) . "\">" . $rows[$i]['E'] . " <br>";
+				}
 				$count++;
 			}
 		}
 		
+		echo "<input type=\"submit\" name=\"submit\" class=\"btn btn-primary btn-rt\" value=\"submit\"></input>";
 		echo "</form>";
 		
 		
