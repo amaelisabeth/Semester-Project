@@ -4,10 +4,10 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   database="se_project",
-  port=3307  #make sure to change this to your port, or if you use 3306, just take out this line and the comma before it
+  port=3307
 )
 
-readFile = open("updatedQuestions.txt","r")
+readFile = open("finalQuestions.txt","r")
 
 mycursor = mydb.cursor()
 
@@ -35,7 +35,7 @@ while (myStr != None):
     if (myStr == '\r'):
         myStr == None
 
-    elif (myStr == "Ch1:\n") or (myStr == "Ch2:\n") or (myStr == "Ch3:\n") or (myStr == "Ch4:\n") or (myStr == "Ch5:\n"):
+    elif (myStr == "Ch1:\n") or (myStr == "Ch2:\n") or (myStr == "Ch3:\n") or (myStr == "Ch4:\n") or (myStr == "Ch5:\n") or (myStr == "Ch6:\n") or (myStr == "Ch7:\n") or (myStr == "Ch8:\n") or (myStr == "Ch9:\n") or (myStr == "ChA:\n"):
 
         chapFlag = 1
 
@@ -53,6 +53,16 @@ while (myStr != None):
             chapNum = 4
         elif myStr[2] == "5":
             chapNum = 5
+        elif myStr[2] == "6":
+            chapNum = 6
+        elif myStr[2] == "7":
+            chapNum = 7
+        elif myStr[2] == "8":
+            chapNum = 8
+        elif myStr[2] == "9":
+            chapNum = 9
+        elif myStr[2] == "A":
+            chapNum = 10
 
         print(chapNum)
         print("")
@@ -194,9 +204,10 @@ while (myStr != None):
                     mycursor.execute(sqlAnsA, sqlValA)
                     mydb.commit()
 
-                    mycursor.execute("SELECT MAX(answerID) FROM answers_b;")
+                    #START OF B
 
-                if (ansB != None):
+                    mycursor.execute("SELECT MAX(answerID) FROM answers_b;")
+                    
                     #mydb.commit()
                     nextB = mycursor.fetchall()
                     nextB = nextB[0]
@@ -215,7 +226,7 @@ while (myStr != None):
                     mycursor.execute(sqlAnsB, sqlValB)
                     mydb.commit()
 
-                if (ansC != None):
+                    #START OF C
 
                     mycursor.execute("SELECT MAX(answerID) FROM answers_c;")
                     #mydb.commit()
@@ -238,7 +249,7 @@ while (myStr != None):
                     mycursor.execute(sqlAnsC, sqlValC)
                     mydb.commit()
 
-                if (ansD != None):
+                    #START OF D
 
                     mycursor.execute("SELECT MAX(answerID) FROM answers_d;")
                     #mydb.commit()
@@ -259,7 +270,7 @@ while (myStr != None):
                     mycursor.execute(sqlAnsD, sqlValD)
                     mydb.commit()
 
-                if (ansE != None):
+                    #START OF E
 
                     mycursor.execute("SELECT MAX(answerID) FROM answers_e;")
                     #mydb.commit()
