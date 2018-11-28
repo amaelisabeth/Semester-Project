@@ -22,6 +22,11 @@
     
 	
 	<?php
+		// Made a session to transfer data from one page to another
+		session_start();
+		$_SESSION['previous_location'] = 'create_new_quiz'; // keep track of previous page
+
+	
 		if(isset($_POST['submit'])){
 			if(empty(isset($_POST['chapter'])) or empty($_POST['qNum'])) {
 				echo("You did not select any chapters or questions");
@@ -59,6 +64,9 @@
 				if (!$result) {
 					die($connection->error);
 				}
+				
+				$_SESSION['chapters'] = $sChapter; // keep track of chapter parameter
+				$_SESSION['numQues'] = $numQuestion;// keep track of questions parameter
 				
 				// if no result exists, generate new quiz and let user take it
 				if ($result->num_rows == 0) {
@@ -113,11 +121,7 @@
 					}
 				}
 					echo("At least one quiz with these parameters exists already. Would you like to take one of those?") . "<br>"; 
-					// Made a session to transfer data from one page to another
-					session_start();
-					$_SESSION['previous_location'] = 'create_new_quiz'; // keep track of previous page
-					$_SESSION['chapters'] = $sChapter; // keep track of chapter parameter
-					$_SESSION['numQues'] = $numQuestion;// keep track of questions parameter
+					
 					
 					echo("<a href = \"pre_gen_quiz.php\"> <input type = \"submit\" value = \"Yes\"></a></br>");
 					// if they select no, store the new quiz in the quizzes table
