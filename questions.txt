@@ -43,6 +43,7 @@ Tools
 Software engineering umbrella activities are only applied during the initial phases of software development projects.
 True
 False
+
 Which of these are the 5 generic software engineering framework activities?
 communication, planning, modeling, construction, deployment
 communication, risk management, measurement, production, reviewing
@@ -217,6 +218,7 @@ What did you do since the last meeting?
 What obstacles are you creating?
 What is the cause of the problem you are encountering?
 What do you plan to accomplish be the next team meeting?
+
 The Dynamic Systems Development Method (DSDM) suggests a philosophy that is based on the Pareto principle (80% of the application can be delivered in 20% of the time required to build the complete application).
 True
 False
@@ -231,3 +233,6 @@ Both a and b
 Agile Unified Process uses the classic UP phased activities (inception, elaboration, construction, transition) to help the team visualize the overall process flow.
 True
 False
+
+
+44 total questions
