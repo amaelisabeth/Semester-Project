@@ -24,7 +24,7 @@
 					session_start();
 					$_SESSION['previous_location'] = 'homepage';
 				?>
-				<a href="pre_gen_quiz.php" class="btn btn-primary">Placeholder for "old quizzes" link</a><br><br>
+				<a href="pre_gen_quiz.php" class="btn btn-primary">Old Quizzes</a><br><br>
 			</li>
 		</ul>
 		
