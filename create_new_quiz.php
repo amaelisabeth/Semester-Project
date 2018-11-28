@@ -84,6 +84,8 @@
 					$row = $result->fetch_assoc();
 					$maxID = (int)$row["MAX(quizID)"];
 					
+					
+					
 					// Add new entry to quizzes table
 					$query = "INSERT INTO quizzes(quizID, chapters, number_of_questions)
 								VALUES('" . ($maxID + 1) . "','" . $sChapter . "','" . $numQuestion . "')";
@@ -93,6 +95,7 @@
 						die($connection->error);
 					}
 					// button to link to quiz generation
+					
 					echo("<a href = \"quiz_creation.php\"> <input type = \"submit\" name = \"Next\" value = \"Next\"></a></br>");
 					
 				}

@@ -34,6 +34,9 @@
 				die($connection->error);
 			}
 			
+			// Add entry to stored quizzes table
+			
+			
 			// Need to only query for entries that match parameters from previous page
 			
 			// for tetsing
@@ -80,7 +83,7 @@
 			echo 	"<td>" . $row['quizID'] . "<td>";
 			echo	"<td>" . $row['chapters'] . "<td>";
 			echo	"<td>" . $row['number_of_questions'] . "<td>";
-			echo	"<td> <div class=\"radio\"> <label><input type=\"radio\" name=\"optradio\"></label></div></td>";
+			echo	"<td> <div class=\"radio\"> <label><input type=\"radio\" name=\"optradio\" value = " . $row['quizID'] . " ></label></div></td>";
 			echo "</tr>";
 		}
 		?>
