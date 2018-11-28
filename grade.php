@@ -20,13 +20,6 @@
 		require_once 'database_functions.php';
 		$connection = create_connection();
 		
-		// $query = "SELECT answers_a.correct as A, answers_b.correct as B, answers_c.correct as C, answers_d.correct as D, answers_e.correct as E, questions.questionID as ID
-				// FROM answers_a, answers_b, answers_c, answers_d, answers_e, questions";
-				
-		// $result = $connection->query($query);
-			// if (!$result) {
-				// die($connection->error);
-			// }
 		
 		//var_dump($_POST);
 		// need to check if user input is correct answer
@@ -38,16 +31,24 @@
 		
 		for ($i = 0; $i < $numQues; $i++) {
 			//echo $quesID_array[$i] . "<br>"; // TESTING
-			if($_POST['question_' . $quesID_array[$i]] == $_SESSION['correct' . $quesID_array[$i]]) {
-				echo "Question " . $quesID_array[$i] . ": ";
-				echo $_POST['question_' . $quesID_array[$i]];
-				echo "<br>";
-				$total_correct += 1;
+			if (isset($_POST['question_' . $quesID_array[$i]])) {
+				if($_POST['question_' . $quesID_array[$i]] == $_SESSION['correct' . $quesID_array[$i]]) {
+					echo "<p>Question " . ($i + 1) . "<br> ";
+					echo "Your Answer: " . $_POST['question_' . $quesID_array[$i]];
+					echo "<br><font color=\"blue\"> CORRECT </font></p>";
+					$total_correct += 1;
+				}
+				else {
+					echo "<p>Question " . ($i + 1). "<br> ";
+					echo "Your Answer: " . $_POST['question_' . $quesID_array[$i]];
+					echo "<br><font color=\"red\">	WRONG </font><br>";
+					echo "Correct Answer: " . $_SESSION['correct' . $quesID_array[$i]] . "</p>"; 
+				}
 			}
 			else {
-				echo "Question " . $quesID_array[$i] . ": ";
-				echo $_POST['question_' . $quesID_array[$i]];
-				echo "	WRONG <br>";
+				echo "<p>Question " . ($i + 1). "<br> ";
+					echo "<font color=\"red\">You did not answer this question </font><br>";
+					echo "Correct Answer: " . $_SESSION['correct' . $quesID_array[$i]] . "</p>";
 			}
 		}
 		

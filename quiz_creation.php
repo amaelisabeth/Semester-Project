@@ -63,7 +63,7 @@
 			}
 		}
 		else if ($_SESSION['previous_location'] == 'pre_gen_quiz') {
-			echo "from pre gen quiz page";
+			//echo "from pre gen quiz page";
 			//var_dump($_POST);
 			$query = "SELECT * FROM quizzes 
 					WHERE quizID = '" . $_POST['optradio'] . "'"; // . $_SESSION['quizID'] . "'"; add later
@@ -152,6 +152,7 @@
 		
 		echo "<form action = \"grade.php\" method = \"post\" id = \"quiz\">";
 		
+		$quesNumber = 1;
 		for ($i = 0; $i < count($queries); $i++) {
 			$results[$i] = $connection->query($queries[$i]);
 			if(!$results[$i]) {
@@ -161,7 +162,7 @@
 			$count = 0;
 			// Select only the number of questions needed for this quiz
 			while($rows[$i] = $results[$i]->fetch_assoc() and ($count < $numQues)) {
-				echo "<br>" . ($count + 1) . ") " . fixString($questions_array[$i][$count]) . "<br>";
+				echo "<br>" . ($quesNumber++) . ") " . fixString($questions_array[$i][$count]) . "<br>";
 				if ($rows[$i]['A']) {
 					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"A\">" . fixString($rows[$i]['A']) . " <br>";
 					if ($rows[$i]['A_correct'] == 1) {

@@ -42,6 +42,9 @@
 
     if(isset($_POST["username"])) {
       $uname = $_POST["username"];
+	  if($uname == "") {
+		die("<font color=\"red\">Username cannot be blank!</font>");
+	  }
       $query = "SELECT passwd AS _msg FROM users
           WHERE UserID = '" . $uname . "'";
       $result = $connection->query($query);

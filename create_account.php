@@ -49,17 +49,24 @@
       $flag = 0;
 			$uname = $_POST["username"];
 			$pword = $_POST["password"];
+			if($uname == "") {
+				die("<font color=\"red\">Username cannot be blank!</font>");
+			}
+			if($pword == "") {
+				die("<font color=\"red\">Password cannot be blank!</font>");
+			}
+			
 			$query = "INSERT INTO users (UserID, passwd, type) VALUES ('".$uname."','".$pword."', 1)";
 			$result = $connection->query($query);
       //$res = $connection->commit();
 			if (!$result)
-				die($connection->error);
+				die("<font color=\"red\">Username already taken! Please choose another one</font>");
 
       $query2 = "SELECT passwd AS _msg FROM users
           WHERE UserID = '" . $uname . "'";
       $result2 = $connection->query($query2);
       if (!$result2){
-        die($connection->error);
+        die("<font color=\"red\">Password already taken! Please choose another one</font>");
       }
 
       if ($result2->num_rows == 0) {
@@ -77,7 +84,7 @@
       }
 
       if ($flag == 1){
-        echo "<p style=\"color: red\"> Account successfully created.</p>";
+        echo "<p style=\"color: blue\"> Account successfully created.</p>";
       }
 
 		}

@@ -64,7 +64,7 @@
     </h2>
 	
 <div class="container">
-	<div class="row justify-content-center align-items-center">
+	<div class="row align-items-center">
 		<h3>Quizzes Available</h3>
 		<table class="table table-striped">
 		<thead>
@@ -92,7 +92,6 @@
 	  <div class="form-group">
 			<?php 
 				$_SESSION['previous_location'] = 'pre_gen_quiz'; 
-				// need to pass quizID via session
 			?>
 			
 			<input type="submit" name="submit" class="btn btn-primary btn-rt" value="submit"></input>

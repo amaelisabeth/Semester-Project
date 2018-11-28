@@ -35,6 +35,12 @@
 				$aChapter = ($_POST["chapter"]);
 				$sChapter = "";
 				$numQuestion = ($_POST['qNum']);
+				if($numQuestion > 5 ) {
+					$numQuestion = 5;
+				}
+				if($numQuestion < 1) {
+					die("You must select a positve number less than 6!");
+				}
 				$N = count($aChapter);
 				echo("You selected $N chapter(s): ") . "</br>";
 				for($i=0; $i < $N; $i++){
