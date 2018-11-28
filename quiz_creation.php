@@ -15,6 +15,11 @@
 	<h1>New Quiz Page</h1>
 	
 	<?php
+		// function to fix strings
+		function fixString($s) {
+			return preg_replace('/[^\x00-\x7f]/', '\'', $s);
+		}
+		
 		session_start();
 		// generate quiz given data from quizzes table
 		// ADD RANDOMIZATION LATER
@@ -156,37 +161,37 @@
 			$count = 0;
 			// Select only the number of questions needed for this quiz
 			while($rows[$i] = $results[$i]->fetch_assoc() and ($count < $numQues)) {
-				echo "<br>" . ($count + 1) . ") " . $questions_array[$i][$count] . "<br>";
+				echo "<br>" . ($count + 1) . ") " . fixString($questions_array[$i][$count]) . "<br>";
 				if ($rows[$i]['A']) {
-					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"A\">" . $rows[$i]['A'] . " <br>";
+					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"A\">" . fixString($rows[$i]['A']) . " <br>";
 					if ($rows[$i]['A_correct'] == 1) {
 						$_SESSION['correct' . $questionID_array[$i][$count]] = "A";
 					}
 				}
 				
 				if ($rows[$i]['B']) {
-					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"B\">" . $rows[$i]['B'] . " <br>";
+					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"B\">" . fixString($rows[$i]['B']) . " <br>";
 					if ($rows[$i]['B_correct'] == 1) {
 						$_SESSION['correct' . $questionID_array[$i][$count]] = "B";
 					}
 				}
 				
 				if ($rows[$i]['C']) {
-					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"C\">" . $rows[$i]['C'] . " <br>";
+					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"C\">" . fixString($rows[$i]['C']) . " <br>";
 					if ($rows[$i]['C_correct'] == 1) {
 						$_SESSION['correct' . $questionID_array[$i][$count]] = "C";
 					}
 				}
 				
 				if ($rows[$i]['D']) {
-					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"D\">" . $rows[$i]['D'] . " <br>";
+					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"D\">" . fixString($rows[$i]['D']) . " <br>";
 					if ($rows[$i]['D_correct'] == 1) {
 						$_SESSION['correct' . $questionID_array[$i][$count]] = "D";
 					}
 				}
 				
 				if ($rows[$i]['E']) {
-					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"E\">" . $rows[$i]['E'] . " <br>";
+					echo "<input type = \"radio\" name = \"question " . ($questionID_array[$i][$count]) . "\" value = \"E\">" . fixString($rows[$i]['E']) . " <br>";
 					if ($rows[$i]['E_correct'] == 1) {
 						$_SESSION['correct' . $questionID_array[$i][$count]] = "E";
 					}
